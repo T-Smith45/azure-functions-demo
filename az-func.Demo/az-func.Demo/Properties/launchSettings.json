@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "az_func.Demo": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7159",
+      "launchBrowser": false
+    }
+  }
+}
