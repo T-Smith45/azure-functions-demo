@@ -16,8 +16,8 @@ public class FastApi
         _quoteService = quoteService;
     }
 
-    [Function("DailyQuotes")]
-    public IActionResult GetDailyQuotes([HttpTrigger(AuthorizationLevel.Anonymous,"get", Route = "daily-quote")] HttpRequest req, string? category)
+    [Function("DailyQuote")]
+    public IActionResult GetDailyQuote([HttpTrigger(AuthorizationLevel.Function,"get", Route = "daily-quote")] HttpRequest req, string? category)
     {
         category ??= "all";
         _logger.LogInformation("Incoming Category: {category}", category);
@@ -28,6 +28,18 @@ public class FastApi
         var time = DateTime.Now.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss");
         var resp = new OkObjectResult(new { quote = q , generateTime = time});
         _logger.LogInformation("Generated Response: Quote: {Author}, Time: {Time}", q.author, time);
+        return resp;
+    }
+    
+    [Function("DailyQuotes")]
+    public IActionResult GetDailyQuotes([HttpTrigger(AuthorizationLevel.Function,"get", Route = "daily-quotes")] HttpRequest req)
+    {
+        _logger.LogInformation("Incoming Request For Randoms Quotes");
+        var q = _quoteService.GetRandomQuotes();
+
+        var time = DateTime.Now.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss");
+        var resp = new OkObjectResult(new { quotes = q , generateTime = time});
+        _logger.LogInformation("Generated Response: Quotes Generated: {Count}, Time: {Time}", q.Count, time);
         return resp;
     }
 

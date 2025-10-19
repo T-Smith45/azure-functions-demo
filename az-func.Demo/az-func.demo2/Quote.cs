@@ -6,6 +6,8 @@ public interface IQuoteService
 {
     Quote GetRandomQuote();
     Quote GetRandomQuoteWithCategory(string category);
+    
+    List<Quote> GetRandomQuotes();
 }
 
 public class QuoteService : IQuoteService
@@ -56,5 +58,17 @@ public class QuoteService : IQuoteService
        return quotes.Count == 0 
            ? new Quote("None", "No Quote Found", "")
            : quotes[random.Next(quotes.Count)];
+    }
+
+
+    public List<Quote> GetRandomQuotes()
+    {
+        var random = new Random();
+        var amount = random.Next(1, 10);
+        var quotes = new List<Quote>();
+        for (var i = 0; i < amount; i++)
+            quotes.Add(GetRandomQuote());
+        return quotes;
+       
     }
 }
