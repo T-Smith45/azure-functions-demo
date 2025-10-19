@@ -1,4 +1,4 @@
-namespace az_func.Demo;
+namespace az_func.demo2;
 
 public record Quote(string author, string message, string category);
 
@@ -58,4 +58,3 @@ public class QuoteService : IQuoteService
            : quotes[random.Next(quotes.Count)];
     }
 }
-

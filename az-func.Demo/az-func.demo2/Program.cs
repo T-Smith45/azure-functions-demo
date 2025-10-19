@@ -1,4 +1,4 @@
-using az_func.Demo;
+using az_func.demo2;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,5 +13,6 @@ builder.Services
     .ConfigureFunctionsApplicationInsights();
 
 builder.Services.AddSingleton<IQuoteService, QuoteService>();
+
 
 builder.Build().Run();

@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace az_func.Demo;
+namespace az_func.demo2;
 
 public class FastApi
 {
@@ -16,16 +16,8 @@ public class FastApi
         _quoteService = quoteService;
     }
 
-    // [Function("FastApi")]
-    // public IActionResult Run([HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequest req)
-    // {
-    //     _logger.LogInformation("C# HTTP trigger function processed a request.");
-    //     return new OkObjectResult("Welcome to Azure Functions!");
-    // }
-
-
     [Function("DailyQuotes")]
-    public IActionResult GetDailyQuotes([HttpTrigger(AuthorizationLevel.Function,"get", Route = "daily-quote")] HttpRequest req, string? category)
+    public IActionResult GetDailyQuotes([HttpTrigger(AuthorizationLevel.Anonymous,"get", Route = "daily-quote")] HttpRequest req, string? category)
     {
         category ??= "all";
         _logger.LogInformation("Incoming Category: {category}", category);
